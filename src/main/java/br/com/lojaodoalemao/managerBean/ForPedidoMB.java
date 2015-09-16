@@ -9,16 +9,19 @@ import br.com.lojaodoalemao.Bean.ForProdutoBean;
 import br.com.lojaodoalemao.facade.FornecedorFacade;
 import br.com.lojaodoalemao.model.Fornecedor;
 import br.com.lojaodoalemao.model.Forpedido;
+import br.com.lojaodoalemao.model.Forpedproduto;
 import br.com.lojaodoalemao.model.Produto;
 import br.com.lojaodoalemao.model.Vinculo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.control.TreeTableColumn.CellEditEvent;
+import org.primefaces.event.CellEditEvent;
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -137,6 +140,30 @@ public class ForPedidoMB implements Serializable{
         if (event!=null){
             System.out.println("!NULL");
         }else System.out.println("NULL");
+    }
+    
+    public String visualiarForPedido() {
+        if (listaForProdutoBean != null) {
+            if (forpedido.getForpedprodutoList() == null) {
+                forpedido.setForpedprodutoList(new ArrayList<Forpedproduto>());
+            }
+
+            for (int i = 0; i < listaForProdutoBean.size(); i++) {
+                if (listaForProdutoBean.get(i).getQuantidadepedido() > 0) {
+                    Forpedproduto forpedproduto = new Forpedproduto();
+                    forpedproduto.setEntrada(0);
+                    forpedproduto.setProduto(listaForProdutoBean.get(i).getVinculo().getProduto());
+                    forpedproduto.setQuantidade(listaForProdutoBean.get(i).getQuantidadepedido());
+                    forpedproduto.setVinculo(listaForProdutoBean.get(i).getVinculo());
+                    forpedido.getForpedprodutoList().add(forpedproduto);
+                }
+            }
+            FacesContext fc = FacesContext.getCurrentInstance();
+            HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+            session.setAttribute("forPedido", forpedido);
+            return "finalizarpedidoproduto";
+        }
+        return null;
     }
 
 }

@@ -21,21 +21,25 @@
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Data Emissão:" class="textocorpo" style="margin-left: 3%"/>
-                    <p:calendar id="dataemissao" value=""  locale="pt"  pattern="dd/MM/yyyy"  mask="true"  size="12" style="margin-left:1%" >
+                    <p:calendar id="dataemissao" value="#{visualizarForPedidoMB.forpedido.dataEmissao}"  locale="pt"  pattern="dd/MM/yyyy"  mask="true"  size="12" style="margin-left:1%" >
                         <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                     </p:calendar>
 
                     <p:outputLabel value="Data Prevista:" class="textocorpo" style="margin-left: 3%"/>
-                    <p:calendar id="dataprevista" value="" size="12"  locale="pt"  pattern="dd/MM/yyyy"  mask="true"  maxlength="15" style="margin-left:1%">
+                    <p:calendar id="dataprevista" value="#{visualizarForPedidoMB.forpedido.dataEntrega}" size="12"  locale="pt"  pattern="dd/MM/yyyy"  mask="true"  maxlength="15" style="margin-left:1%">
                         <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                     </p:calendar>
                     
                      <p:outputLabel value="Condições de pagamento:" class="textocorpo" style="margin-left: 2%"/>
-                    <p:selectOneMenu id="comboboxcondicaopgm" value="#" style="width:12%;font-size: 10px;margin-left:1%">
-                        <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"  />
-                        <f:selectItems id="idcondicaopagamento" value="#" var="condicaopagamento" itemLabel="#" itemValue="#"/>
-
-                        <p:ajax event="change"/> 
+                     <p:selectOneMenu id="comboboxcondicaopgm" value="#{visualizarForPedidoMB.forpedido.condicaoPagamento}" style="width:12%;font-size: 10px;margin-left:1%">
+                         <f:selectItem itemLabel="Condição Pagamento" itemValue="0" noSelectionOption="true"  />
+                        <f:selectItem itemLabel="a Vista Dinheiro" itemValue="a Vista Dinheiro" />
+                        <f:selectItem itemLabel="a Vista Cheque" itemValue="a Vista Cheque" />
+                        <f:selectItem itemLabel="a Vista Depósito" itemValue="a Vista Depósito" />
+                        <f:selectItem itemLabel="a Prazo Duplicata" itemValue="a Prazo Duplicata" />
+                        <f:selectItem itemLabel="a Prazo Carteira" itemValue="a Prazo Carteira" />
+                        <f:selectItem itemLabel="a Prazo Cartão" itemValue="a Prazo Cartão" />
+                        Selecione Condição
                     </p:selectOneMenu>
                     <br></br><br></br>
                     <p:outputLabel value="Produto:" class="textocorpo" style="margin-left: 3.7%"/>
@@ -61,24 +65,26 @@
                      <p:commandButton id="bntremover" action="#"  class="btnsegundo" style="font-size:11px;" value="Remover" icon=" ui-icon-closethick"/>
                      <p:commandButton id="bntfechar" action="#"  class="btnprimeiro" style="font-size:11px;" value="Fechar" icon=" ui-icon-home"/>
                 
-                     <p:dataTable id="tabelafinalizarPedido" var="finalizarpedidos" value="#" 
+                     <p:dataTable id="tabelafinalizarPedido" var="forpedproduto" value="#{visualizarForPedidoMB.forpedido.forpedprodutoList}" 
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
                                  paginator="true" rows="10" style="margin-bottom:15px;font-size: 10px;width: 90%;margin-left: 5%" >
                         
                         <p:column headerText="Código" style="width:40px;" >
-                            <h:outputText value="#" />
+                            <h:outputText value="#{forpedproduto.vinculo.produto.referencia}" />
                         </p:column>
                         <p:column headerText="Descrição" style="width:200px;">
-                            <h:outputText value="#" />
+                            <h:outputText value="#{forpedproduto.vinculo.produto.descricao}" />
                         </p:column>
                         <p:column headerText="Unidade" style="width:150px;">
-                            <h:outputText value="#" />
+                            <h:outputText value="#{forpedproduto.vinculo.produto.unidade}" />
                         </p:column>
                         <p:column headerText="Quantidade" style="width:80px;">
-                            <h:outputText value="#" />
+                            <h:outputText value="#{forpedproduto.quantidade}" >
+                                <f:convertNumber pattern="##,###,###,###.###" minFractionDigits="3" />
+                            </h:outputText>
                         </p:column>
                         <p:column headerText="Cód. Fabricante" style="width:50px;">
-                            <h:outputText value="#" />
+                            <h:outputText value="#{forpedproduto.vinculo.codigoFabricante}" />
                         </p:column>
                     </p:dataTable> <br></br>
                 </div>

@@ -26,10 +26,10 @@
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
                                  paginator="true" rows="10" style="margin-bottom:15px;font-size: 10px;" 
                                  selectionMode="single" selection="#{forPedidoMB.forProdutoBean}" rowKey="#{forprodutobean.vinculo.idvinculo}"
-                                 editable="true" editMode="cell" >
+                                 editable="true" editMode="cell" widgetVar="cellForPedido" >
                         
                         <p:ajax event="rowSelect" update=":paginaconspedidofornecedor:tabelaDescricaoPedido"/> 
-                        <p:ajax event="cellEdit" listener="#{forPedidoMB.onCellEdit(event)}" />
+                        <p:ajax event="cellEdit" listener="#{forPedidoMB.onCellEdit}" update=":paginaconspedidofornecedor:tabelaPedidosFornecedor"/> />
                         
                         <p:column headerText="Código" style="width:40px;" >
                             <h:outputText value="#{forprodutobean.vinculo.produto.referencia}" />
@@ -94,7 +94,7 @@
                         <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
                     </p:outputLabel>
                     <br></br><br></br><br></br><br></br>
-                     <p:commandButton id="bntvisualizar" action="#"  class="btnprimeiro" style="font-size:11px;" value="Visualizar" icon=" ui-icon-search"/>
+                    <p:commandButton id="bntvisualizar" action="#{forPedidoMB.visualiarForPedido()}"  class="btnprimeiro" style="font-size:11px;" value="Visualizar" icon=" ui-icon-search"/>
                      <p:commandButton id="bntnumdias" action="#"  class="btnprimeiro" style="font-size:11px;" value="No. Dias" icon=" ui-icon-calendar"/>
                      <p:commandButton id="bntadicionarvinculo" action="#"  class="btnprimeiro" style="font-size:11px;" value="Adiconar Vinculo" icon="ui-icon-check"/>
                      <p:commandButton id="bntremoveroutrosvinculos" action="#"  class="btnsegundo" style="font-size:11px;" value="Remover Outros Vinculos" icon=" ui-icon-closethick"/>

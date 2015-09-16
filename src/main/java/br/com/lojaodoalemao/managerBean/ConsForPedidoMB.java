@@ -128,5 +128,9 @@ public class ConsForPedidoMB  implements Serializable{
         }
     }
     
+    public String adicionarPedidoCompras(){
+        return "IniciarPedidoCompra";
+    }
+    
     
 }

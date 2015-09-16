@@ -13,16 +13,10 @@ public class MenuMB implements Serializable{
         return "paginainicial";
     }
     
-    public String pedidosFornecedor(){
-        return "pedidosfornecedor";
-    }
-    
     public String pedidosCompra(){
         return "pedidoscompra";
     }
     
-    public String pedidosProduto(){
-        return "finalizarpedidoproduto";
-    }
+    
     
 }

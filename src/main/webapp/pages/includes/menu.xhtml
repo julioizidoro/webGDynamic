@@ -29,15 +29,16 @@
         <br></br>
         <p:megaMenu   id="menucadastro" style="z-index: 3!important;overflow: visible!important;">
             <p:submenu label="Cadastros"  icon=" ui-icon-plus ">
-                 <p:column> 
-                     <p:submenu>
-                         <p:menuitem  value="fornecedor" action="#{menuMB.pedidosFornecedor()}" update="growl"/>
-                         <p:menuitem  value="compra" action="#{menuMB.pedidosCompra()}" update="growl"/>
-                         <p:menuitem  value="produto" action="#{menuMB.pedidosProduto()}" update="growl"/>
-                      </p:submenu>
-                 </p:column>
+                
             </p:submenu>
             <p:submenu label="Compras"  icon="ui-icon-cart">
+                 <p:column> 
+                     <p:submenu>
+                         <p:menuitem  value="Entrda" action="#{menuMB.pedidosCompra()}" />
+                         <p:menuitem  value="Pedido" action="#"/>
+                         <p:menuitem  value="Estoque" action="#"/>
+                      </p:submenu>
+                 </p:column>
                  
             </p:submenu>
             <p:submenu label="Gerencial"  icon=" ui-icon-star">

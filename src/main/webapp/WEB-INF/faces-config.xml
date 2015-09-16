@@ -16,15 +16,15 @@
         <navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
-			<from-outcome>finalizarpedidoproduto</from-outcome>
-			<to-view-id>/pages/pedido/finalizarPedidoProduto.xhtml</to-view-id>
+			<from-outcome>IniciarPedidoCompra</from-outcome>
+			<to-view-id>/pages/pedido/finalizarPedidoCompra.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
-			<from-outcome>pedidosfornecedor</from-outcome>
+			<from-outcome>visualizarPedidoCompra</from-outcome>
 			<to-view-id>/pages/pedido/consPedidoFornecedor.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
