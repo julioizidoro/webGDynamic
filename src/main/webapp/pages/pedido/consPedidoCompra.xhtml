@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/pages/templates/default.xhtml">
+        <ui:define name="corpo">
+            <h:form id="paginapedidocompra">
+                <div class="centro"><br></br>
+                    <p:growl id="growl2" showDetail="true" sticky="true" />
+                    <legend class="legenda">Pedido de Compras</legend>
+                    <br></br><br></br>
+                    <p:outputLabel value="Razão Social:" class="textocorpo" style="margin-left: 2%"/>
+                    <p:selectOneMenu id="idfornecedorpesquisa" value="#{consForPedidoMB.fornecedor}" style="margin-left: 1%;width: 14%"
+                                     converter="fornecedorConverter" filter="true" filterMatchMode="startsWith">
+                        <f:selectItem itemLabel="Fornecedor" itemValue="0" noSelectionOption="true" />
+                        <f:selectItems value="#{consForPedidoMB.listaFornecedor}" var="fornecedor" itemLabel="#{fornecedor.nomeFantasia}"
+                                       itemValue="#{fornecedor}" />
+                        <f:attribute name="listaFornecedor" value="#{consForPedidoMB.listaFornecedor}" />
+                    </p:selectOneMenu>
+                    
+                    <p:selectBooleanCheckbox value="#{consForPedidoMB.pedidoFinalizado}" style="margin-left:5%"/>
+                    <p:outputLabel value="Pedido Registrado" class="textocorpo" style="margin-left:0.5%"/>
+                    
+                    <p:outputLabel value="Data Inícial:" class="textocorpo" style="margin-left: 3%"/>
+                    <p:calendar id="datainicial" value="#{consForPedidoMB.dataInical}"  locale="pt"  pattern="dd/MM/yyyy"  mask="true"  size="10" style="margin-left:1%" >
+                        <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                    </p:calendar>
+
+                    <p:outputLabel value="Data Final:" class="textocorpo" style="margin-left:2%"/>
+                    <p:calendar id="dataprevista" value="#{consForPedidoMB.dataFinal}" size="10"  locale="pt"  pattern="dd/MM/yyyy"  mask="true"  maxlength="15" style="margin-left:1%">
+                        <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                    </p:calendar>
+                    <p:commandButton id="bntpesquisafinal" action="#"  class="btnpesquisar" style="font-size:11px;margin-left:0.5%" icon="ui-icon-search"/>
+                    <br></br>
+                    <p:dataTable id="tabelapesquisarfornecedor" var="pedidos" value="#{consForPedidoMB.listaPedidos}" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                                 paginator="true" rows="10" style="margin-bottom:15px;font-size: 10px;width:40%;margin-left:2%" 
+                                 selectionMode="single" selection="#{consForPedidoMB.forPedido}" rowKey="#{pedidos.idForPedido}">
+                        <p:ajax event="rowSelect" update=":paginapedidocompra:tabelapedidoscompra" />
+                        
+                        <p:column headerText="No. Pedido" style="width:60px;" >
+                            <h:outputText value="#{pedidos.idForPedido}" />
+                        </p:column>
+                        <p:column headerText="Fornecedor" style="width:125px;">
+                            <h:outputText value="#{pedidos.fornecedor.nomeFantasia}" />
+                        </p:column>
+                        <p:column headerText="Data Emissão" style="width:60px;">
+                            <h:outputText value="#{pedidos.dataEmissao}" />
+                        </p:column>
+                        <p:column headerText="Data Entrada" style="width:60px;">
+                            <h:outputText value="#{pedidos.dataRegistro}" />
+                        </p:column>
+                         <p:column headerText="Condição Pagt" style="width:70px;">
+                             <h:outputText value="#{pedidos.condicaoPagamento}" />
+                        </p:column>
+                    </p:dataTable> 
+                    <p:dataTable id="tabelapedidoscompra" var="pedidosproduto" value="#{consForPedidoMB.forPedido.forpedprodutoList}" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                                 paginator="true" rows="10" style="margin-bottom:15px;font-size: 10px;width:51%;margin-left:47%;margin-top: -11.2%" >
+                        
+                        <p:column headerText="Código" style="width:40px;" >
+                            <h:outputText value="#{pedidosproduto.produto.referencia}" />
+                        </p:column>
+                        <p:column headerText="Descrição" style="width:125px;">
+                            <h:outputText value="#{pedidosproduto.produto.descricao}" />
+                        </p:column>
+                        <p:column headerText="unidade" style="width:100px;">
+                            <h:outputText value="#{pedidosproduto.produto.unidade}" />
+                        </p:column>
+                        <p:column headerText="Quantidade" style="width:80px;">
+                            <h:outputText value="#{pedidosproduto.quantidade}" />
+                        </p:column>
+                         <p:column headerText="Fabricante" style="width:50px;">
+                             <h:outputText value="#{pedidosproduto.vinculo.codigoFabricante}" />
+                        </p:column>
+                    </p:dataTable> 
+                    
+                    <br></br><br></br>
+                     <p:commandButton id="bntadicionar" action="#"  class="btnprimeiro" style="font-size:11px;margin-left:30%" value="Adicionar" icon="ui-icon-plusthick"/>
+                      <p:commandButton id="bntfechar" action="#"  class="btnprimeiro" style="font-size:11px;" value="Fechar" icon=" ui-icon-home"/>
+                 <br></br> <br></br>
+                </div>
+            </h:form>     
+        </ui:define>
+    </ui:composition>
+</html>
+

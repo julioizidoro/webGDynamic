@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/pages/templates/default.xhtml">
+        <ui:define name="corpo">
+            <h:form id="paginaconspedidofornecedor">
+                <div class="centro"><br></br>
+                    <p:growl id="growl2" showDetail="true" sticky="true" />
+                    <legend class="legenda">Pedido de Fornecedor</legend>
+                    <br></br><br></br>
+                    <p:outputLabel value="Fornecedor:" class="textocorpo" style="margin-left: 2%"/>
+                    <p:selectOneMenu id="comboboxFornecedor" value="#{forPedidoMB.forpedido.fornecedor}" style="width:27%;font-size: 10px;margin-left:1%" 
+                                     converter="fornecedorConverter" filter="true" filterMatchMode="startsWith">
+                        <f:selectItem itemLabel="Fornecedor" itemValue="0" noSelectionOption="true" />
+                        <f:selectItems value="#{consForPedidoMB.listaFornecedor}" var="fornecedor" itemLabel="#{fornecedor.nomeFantasia}"
+                                       itemValue="#{fornecedor}" />
+                        <f:attribute name="listaFornecedor" value="#{consForPedidoMB.listaFornecedor}" />
+                        <p:ajax event="change" listener="#{forPedidoMB.carregarListaProdutos()}" update=":paginaconspedidofornecedor:tabelaPedidosFornecedor"/> 
+                    </p:selectOneMenu>
+                    <br></br><br></br>
+                    <p:dataTable id="tabelaPedidosFornecedor" var="forprodutobean" value="#{forPedidoMB.listaForProdutoBean}" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                                 paginator="true" rows="10" style="margin-bottom:15px;font-size: 10px;" 
+                                 selectionMode="single" selection="#{forPedidoMB.forProdutoBean}" rowKey="#{forprodutobean.vinculo.idvinculo}"
+                                 editable="true" editMode="cell" >
+                        
+                        <p:ajax event="rowSelect" update=":paginaconspedidofornecedor:tabelaDescricaoPedido"/> 
+                        <p:ajax event="cellEdit" listener="#{forPedidoMB.onCellEdit(event)}" />
+                        
+                        <p:column headerText="Código" style="width:40px;" >
+                            <h:outputText value="#{forprodutobean.vinculo.produto.referencia}" />
+                        </p:column>
+                        <p:column headerText="Descrição" >
+                            <h:outputText value="#{forprodutobean.vinculo.produto.descricao}" />
+                        </p:column>
+                        <p:column headerText="Unidade" >
+                            <h:outputText value="#{forprodutobean.vinculo.produto.unidade}" />
+                        </p:column>
+                        <p:column headerText="Estoque" >
+                            <h:outputText value="#{forprodutobean.estouqe.quantidadeEstoque}" >
+                                <f:convertNumber pattern="##,###,###,###.###" minFractionDigits="3" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Valor Vendas" style="width:50px;">
+                            <h:outputText value="#{forprodutobean.estouqe.valorVenda}" >
+                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Ultimas Vendas" style="width:50px;">
+                            <h:outputText value="#{forprodutobean.estouqe.dataVenda}" >
+                                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Valor Compras" style="width:50px;">
+                            <h:outputText value="#{forprodutobean.estouqe.valorCusto}" >
+                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Ultimas Compras" style="width:50px;">
+                            <h:outputText value="#{forprodutobean.estouqe.dataCompra}" >
+                                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Chegada" >
+                            <h:outputText value="#{forprodutobean.dataChegada}">
+                                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Embalagem" >
+                            <h:outputText value="#{forprodutobean.vinculo.embalagem}" />
+                        </p:column>
+                        <p:column headerText="Fabricante" >
+                            <h:outputText value="#{forprodutobean.vinculo.codigoFabricante}" />
+                        </p:column>
+                        <p:column headerText="Quantidade" >
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{forprodutobean.quantidadepedido}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText id="InputQuantidadePedido" value="#{forprodutobean.quantidadepedido}" style="width:100%">
+                                        <f:convertNumber pattern="##,###,###,###.###" minFractionDigits="3" />
+                                    </p:inputText>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                    </p:dataTable>
+                    <p:outputLabel value="Total do Pedido R$:" style="margin-left: 80%;font-weight: bold;margin-left: "/>
+                    <p:outputLabel value="" style="font-weight: bold;">
+                        <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                    </p:outputLabel>
+                    <br></br><br></br><br></br><br></br>
+                     <p:commandButton id="bntvisualizar" action="#"  class="btnprimeiro" style="font-size:11px;" value="Visualizar" icon=" ui-icon-search"/>
+                     <p:commandButton id="bntnumdias" action="#"  class="btnprimeiro" style="font-size:11px;" value="No. Dias" icon=" ui-icon-calendar"/>
+                     <p:commandButton id="bntadicionarvinculo" action="#"  class="btnprimeiro" style="font-size:11px;" value="Adiconar Vinculo" icon="ui-icon-check"/>
+                     <p:commandButton id="bntremoveroutrosvinculos" action="#"  class="btnsegundo" style="font-size:11px;" value="Remover Outros Vinculos" icon=" ui-icon-closethick"/>
+                     <p:commandButton id="bntremovervinculoatual" action="#"  class="btnsegundo" style="font-size:11px;" value="Remover Vinculo Atual" icon=" ui-icon-closethick"/>
+                     <p:commandButton id="bntfornecedor" action="#"  class="btnprimeiro" style="font-size:11px;" value="Fornecedor" icon="ui-icon-check"/>
+                     <p:commandButton id="bntfechar" action="#"  class="btnprimeiro" style="font-size:11px;" value="Voltar" icon=" ui-icon-home"/>
+                     <br></br>
+                
+                     <p:dataTable id="tabelaDescricaoPedido" var="vinculos" value="#{forPedidoMB.forProdutoBean.vinculo.produto.vinculoList}" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                                 paginator="true" rows="10" style="margin-bottom:15px;font-size: 10px;" >
+                        
+                        <p:column headerText="Código" style="width:40px;" >
+                            <h:outputText value="#{vinculos.fornecedor.idfornecedor}" />
+                        </p:column>
+                        <p:column headerText="Razão Social" >
+                            <h:outputText value="#{vinculos.fornecedor.razaoSocial}" />
+                        </p:column>
+                        <p:column headerText="Valor Custo" >
+                            <h:outputText value="#{forPedidoMB.verificarValorCusto(vinculos.produto)}" >
+                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Valor Compra" >
+                            <h:outputText value="#{vinculos.valorCompra}" >
+                                <f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Prazo Entrega" >
+                            <h:outputText value="#{vinculos.fornecedor.prazoEntrega}" >
+                                 
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Data Compra" >
+                            <h:outputText value="#{vinculos.dataCompra}" >
+                                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Embalagem" >
+                            <h:outputText value="#{vinculos.embalagem}" />
+                        </p:column>
+                        <p:column headerText="Fabricante" >
+                            <h:outputText value="#{vinculos.codigoFabricante}" />
+                        </p:column>
+                        <p:column headerText="ST" >
+                            <h:outputText value="#{forPedidoMB.verificarST(vinculos.produto)}" />
+                        </p:column>
+                    </p:dataTable> <br></br>
+                     </div>
+            </h:form>     
+        </ui:define>
+    </ui:composition>
+</html>
+

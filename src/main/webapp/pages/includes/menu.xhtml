@@ -1,0 +1,56 @@
+<h:form id="formMenu" xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html">
+    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+    <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+        <img src="resources/img/carregar.gif" />
+    </p:dialog>
+    <div class="tudo">
+        <p:growl id="growl" showDetail="true" sticky="true" />
+        <tr>
+            <td><table aling="center" width="00" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><img src="../../resources/img/logo.jpg"  width="170" height="100"/>
+                            <h:panelGrid columns="2" cellpadding="1" class="usuariologado">
+                                <p:outputLabel value="Usuário:"  class="fonteUsuarioLogado"/> 
+                                <p:outputLabel value="#{usuarioLogadoMB.usuario.nome}" class="fonteUsuarioLogado"/> 
+                            </h:panelGrid>
+                            <br></br><br></br><br></br><br></br><br></br>
+                            <h:panelGrid columns="2" cellpadding="1" class="usuariologado">
+                                <p:commandLink id="btnLogout"  value="Logout" styleClass="fonteUsuarioLogado" action="#"/> 
+                                <img src="../../resources/img/deslogar.png" /> 
+                            </h:panelGrid></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <br></br>
+        <p:megaMenu   id="menucadastro" style="z-index: 3!important;overflow: visible!important;">
+            <p:submenu label="Cadastros"  icon=" ui-icon-plus ">
+                 <p:column> 
+                     <p:submenu>
+                         <p:menuitem  value="fornecedor" action="#{menuMB.pedidosFornecedor()}" update="growl"/>
+                         <p:menuitem  value="compra" action="#{menuMB.pedidosCompra()}" update="growl"/>
+                         <p:menuitem  value="produto" action="#{menuMB.pedidosProduto()}" update="growl"/>
+                      </p:submenu>
+                 </p:column>
+            </p:submenu>
+            <p:submenu label="Compras"  icon="ui-icon-cart">
+                 
+            </p:submenu>
+            <p:submenu label="Gerencial"  icon=" ui-icon-star">
+                 
+            </p:submenu>
+        </p:megaMenu >
+        
+    </div>
+    <div class="centro">
+        
+        
+    </div>
+    <br>  </br>
+    <br>  </br>
+</h:form>
+

@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/pages/templates/default.xhtml">
+        <ui:define name="corpo">
+            <h:form id="paginafinalizarpedidoproduto">
+                <div class="centro"><br></br>
+                    <p:growl id="growl2" showDetail="true" sticky="true" />
+                    <legend class="legenda">Finalizar Pedidos Produto</legend>
+                    <br></br><br></br>
+                    <p:outputLabel value="Fornecedor:" class="textocorpo" style="margin-left: 2%"/>
+                    <p:selectOneMenu id="comboboxFornecedor" value="#" style="width:17%;font-size: 10px;margin-left:1%">
+                        <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"  />
+                        <f:selectItems id="idfornecedor" value="#" var="fornecedor" itemLabel="#" itemValue="#"/>
+
+                        <p:ajax event="change"/> 
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Data Emissão:" class="textocorpo" style="margin-left: 3%"/>
+                    <p:calendar id="dataemissao" value=""  locale="pt"  pattern="dd/MM/yyyy"  mask="true"  size="12" style="margin-left:1%" >
+                        <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                    </p:calendar>
+
+                    <p:outputLabel value="Data Prevista:" class="textocorpo" style="margin-left: 3%"/>
+                    <p:calendar id="dataprevista" value="" size="12"  locale="pt"  pattern="dd/MM/yyyy"  mask="true"  maxlength="15" style="margin-left:1%">
+                        <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                    </p:calendar>
+                    
+                     <p:outputLabel value="Condições de pagamento:" class="textocorpo" style="margin-left: 2%"/>
+                    <p:selectOneMenu id="comboboxcondicaopgm" value="#" style="width:12%;font-size: 10px;margin-left:1%">
+                        <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true"  />
+                        <f:selectItems id="idcondicaopagamento" value="#" var="condicaopagamento" itemLabel="#" itemValue="#"/>
+
+                        <p:ajax event="change"/> 
+                    </p:selectOneMenu>
+                    <br></br><br></br>
+                    <p:outputLabel value="Produto:" class="textocorpo" style="margin-left: 3.7%"/>
+                    <p:inputText id="idproduto" value="#" style="margin-left: 1%;width: 17%"/>
+                    
+                    <p:outputLabel value="Descrição:" class="textocorpo" style="margin-left:8%"/>
+                    <p:inputText id="iddescricao" value="#" style="margin-left: 1%;width:24%"/>
+                    
+                    <p:outputLabel value="Unidade:" class="textocorpo" style="margin-left:7.4%"/>
+                    <p:inputText id="idunidade" value="#" style="margin-left: 1%;width:17%"/>
+                    
+                    <br></br><br></br>
+                    <p:outputLabel value="Quantidade:" class="textocorpo" style="margin-left: 2%"/>
+                    <p:inputText id="idqntd" value="#" style="margin-left: 1%;width: 10%"/>
+                    
+                    <p:outputLabel value="Código Fabricante:" class="textocorpo" style="margin-left:5%"/>
+                    <p:inputText id="idcodigofabri" value="#" style="margin-left: 1%;width:12%"/>
+                    
+                    <p:outputLabel value="Embalagem:" class="textocorpo" style="margin-left:5%"/>
+                    <p:inputText id="idembalagem" value="#" style="margin-left: 1%;width:14%"/>
+                    <br></br><br></br> <br></br> <br></br>
+                    <p:commandButton id="bntfinalizar" action="#"  class="btnprimeiro" style="font-size:11px;margin-left:30%" value="Finalizar" icon="ui-icon-check"/>
+                     <p:commandButton id="bntremover" action="#"  class="btnsegundo" style="font-size:11px;" value="Remover" icon=" ui-icon-closethick"/>
+                     <p:commandButton id="bntfechar" action="#"  class="btnprimeiro" style="font-size:11px;" value="Fechar" icon=" ui-icon-home"/>
+                
+                     <p:dataTable id="tabelafinalizarPedido" var="finalizarpedidos" value="#" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                                 paginator="true" rows="10" style="margin-bottom:15px;font-size: 10px;width: 90%;margin-left: 5%" >
+                        
+                        <p:column headerText="Código" style="width:40px;" >
+                            <h:outputText value="#" />
+                        </p:column>
+                        <p:column headerText="Descrição" style="width:200px;">
+                            <h:outputText value="#" />
+                        </p:column>
+                        <p:column headerText="Unidade" style="width:150px;">
+                            <h:outputText value="#" />
+                        </p:column>
+                        <p:column headerText="Quantidade" style="width:80px;">
+                            <h:outputText value="#" />
+                        </p:column>
+                        <p:column headerText="Cód. Fabricante" style="width:50px;">
+                            <h:outputText value="#" />
+                        </p:column>
+                    </p:dataTable> <br></br>
+                </div>
+            </h:form>     
+        </ui:define>
+    </ui:composition>
+</html>
+

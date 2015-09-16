@@ -1,0 +1,135 @@
+body {
+    font-size:11px;
+    font-family: tahoma;
+    background-color:#D1EEEE;
+    color: #333;
+    width: 98%;
+}
+
+
+.tudo {
+    margin-top: -1%;
+    position: relative;
+    background:#403F85;
+    width:90%;
+    left:5%;
+    border: 0px solid #aaa;
+}
+
+.usuariologado{
+    margin-top: -6.26%;
+    margin-left:88%;
+    text-align:right;
+    color:#fff;
+}
+
+.fonteUsuarioLogado{
+    color:#fff;
+    text-align:right;
+}
+
+.login{
+    margin-top:13%;
+    width: 100%;
+    background:#403F85;
+}
+
+.tabelalogin{
+    text-align:left; 
+    width: 100%;
+}
+
+.espacologinbra{
+    margin-left:40%;
+    color: #fff;
+}
+
+.espacologin{
+    margin-left:40%;
+}
+
+.loginButton{
+    margin-left:53%;
+}
+
+
+
+.titulo{
+    color: #403F85;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 0.6pt;
+    word-spacing: 1.6pt;
+}
+
+.legenda{
+    color: #403F85;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 0.6pt;
+    word-spacing: 1.6pt;
+}
+
+.textocorpo{
+    color: #403F85;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.6pt;
+    word-spacing: 1.6pt;
+}
+
+.btnprimeiro{
+    width: 13%;
+}
+.btnprimeiro:hover{
+    height: 12%;
+    width: 12%;
+    border: #1F8871;
+}
+.btnterceiro{
+    width: 13%;
+}
+.btnterceiro:hover{
+    height: 12%;
+    width: 12%;
+    border: #1F8871;
+}
+.btnsegundo{
+    width: 17%;
+}
+.btnsegundo:hover{
+    height: 12%;
+    width: 16%;
+    border: #1F8871;
+}
+.logo{
+    margin-left: -85.2%;
+}
+
+
+.centro{
+    margin-top: -2.2%;
+    position: relative;
+    background:#fff;
+    width:90%;
+    left:5%;
+    border: 0px solid #aaa;
+}
+
+.btnpesquisar{
+    width: 3%;
+}
+.btnpesquisar:hover{
+    height: 12%;
+    width: 2.5%;
+    border: #1F8871;
+}
+
+.submenu{
+    top: -2%;
+}
